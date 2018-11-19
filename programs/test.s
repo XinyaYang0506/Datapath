@@ -29,18 +29,25 @@ remainder_end:
   
 quotient: 
   li $v0, 0							# counter = $v0 
+###a0 is fine
 quotient_loop:
   slt $t1, $a0, $a1					# see if $a0 < $a1 (bottom of the loop)
   bne $t1, $zero, quotient_exit	
   nop
 
   sub $a0, $a0, $a1 				# SUB $a0 from $a1 
-  addi $t0, $v0, 1					# counter++ 
+  addi $v0, $v0, 1					# counter++ 
   nop
   j quotient_loop
   nop
  
 quotient_exit: 
+###
+#li $t3, 0x76
+#sb $t3, 0($s1)
+#addi $t3, $v0, 0x30
+#sb $t3, 0($s1)
+###
   jr $ra
   nop
 
@@ -67,8 +74,24 @@ print_decimal_number:
   beq $t2, $zero, end
   nop 
   jal quotient
+###
+#li $t3, 0x41
+#sb $t3, 0($s1)
+#subi $t3, $v0, 30
+#sb $t3, 0($s1)
+#li $t3, 0x43
+#sb $t3, 0($s1)
+###
   nop
+###
+#addi $t3, $v0, 0x30
+#sb $t3, 0($s1)
+###
   addi $a0, $v0, 0
+###
+#addi $t3, $a0, 0x30
+#sb $t3, 0($s1)
+###
   jal print_decimal_number
   nop
    

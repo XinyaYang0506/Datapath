@@ -14,14 +14,16 @@ fibonacci:
   addi $a0, $s2, 0 
   jal print_decimal_number
   nop
+  li $t0, 0x0a                                  # Load ASCII value for newline
+  sb $t0, 0($s1)                                # Print newline
   addi $a0, $s3, 0 
   jal print_decimal_number
   nop
   
 fibonacci_loop: 
-  li $t0, 0x0a   # Load ASCII value for newline
-  sb $t0, 0($s1) # Print newline
-  li $t3, 15				# set the limit to 15 numbers to print
+  li $t0, 0x0a                                  # Load ASCII value for newline
+  sb $t0, 0($s1)                                # Print newline
+  li $t3, 15				        # set the limit to 15 numbers to print
   beq $t3, $s0, fibonacci_end
   nop
   add $a0, $s3, $s2
@@ -29,12 +31,12 @@ fibonacci_loop:
   addi $s3, $a0, 0
   jal print_decimal_number
   nop
-  addi $s0, $s0, 1           #counter++
+  addi $s0, $s0, 1                              #counter++
   j fibonacci_loop
   nop
   
 fibonacci_end:
-  j HALT         # Stop execution
+  j HALT                                        # Stop execution
   nop
   
   
@@ -52,14 +54,13 @@ remainder_end:
   nop
   
 quotient: 
-  li $v0, 0							# counter = $v0 
+  li $v0, 0					# counter = $v0 
 quotient_loop:
-  slt $t1, $a0, $a1					# see if $a0 < $a1 (bottom of the loop)
+  slt $t1, $a0, $a1				# see if $a0 < $a1 (bottom of the loop)
   bne $t1, $zero, quotient_exit	
   nop
-
   sub $a0, $a0, $a1 				# SUB $a0 from $a1 
-  addi $t0, $v0, 1					# counter++ 
+  addi $v0, $v0, 1				# counter++ 
   nop
   j quotient_loop
   nop

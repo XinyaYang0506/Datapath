@@ -28,10 +28,10 @@ d
 31
 
 # Opcode 7: slt
-41
+0041
 
 # Opcode 8: sltu
-51
+0051
 
 # Opcode 9: lb
 3001

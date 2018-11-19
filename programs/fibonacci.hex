@@ -23,208 +23,214 @@ v2.0 raw
 02c10000 
 
 # 0x001c: jal print_decimal_number
-ff0300bc 
+ff0300c4 
 
 # 0x0020: nop
 00010000 
 
-# 0x0024: addi $a0, $s3, 0
-02d10000 
-
-# 0x0028: jal print_decimal_number
-ff0300bc 
-
-# 0x002c: nop
-00010000 
-
-# 0x0030: li $t0, 0x0a   # Load ASCII value for newline
+# 0x0024: li $t0, 0x0a                                  # Load ASCII value for newline
 0601000a 
 
-# 0x0034: sb $t0, 0($s1) # Print newline
+# 0x0028: sb $t0, 0($s1)                                # Print newline
 b6b10000 
 
-# 0x0038: li $t3, 15				# set the limit to 15 numbers to print
+# 0x002c: addi $a0, $s3, 0
+02d10000 
+
+# 0x0030: jal print_decimal_number
+ff0300c4 
+
+# 0x0034: nop
+00010000 
+
+# 0x0038: li $t0, 0x0a                                  # Load ASCII value for newline
+0601000a 
+
+# 0x003c: sb $t0, 0($s1)                                # Print newline
+b6b10000 
+
+# 0x0040: li $t3, 15				        # set the limit to 15 numbers to print
 0901000f 
 
-# 0x003c: beq $t3, $s0, fibonacci_end
-d9a10064 
+# 0x0044: beq $t3, $s0, fibonacci_end
+d9a1006c 
 
-# 0x0040: nop
+# 0x0048: nop
 00010000 
 
-# 0x0044: add $a0, $s3, $s2
+# 0x004c: add $a0, $s3, $s2
 02d0c000 
 
-# 0x0048: addi $s2, $s3, 0
+# 0x0050: addi $s2, $s3, 0
 0cd10000 
 
-# 0x004c: addi $s3, $a0, 0
+# 0x0054: addi $s3, $a0, 0
 0d210000 
 
-# 0x0050: jal print_decimal_number
-ff0300bc 
+# 0x0058: jal print_decimal_number
+ff0300c4 
 
-# 0x0054: nop
+# 0x005c: nop
 00010000 
 
-# 0x0058: addi $s0, $s0, 1           #counter++
+# 0x0060: addi $s0, $s0, 1                              #counter++
 0aa10001 
 
-# 0x005c: j fibonacci_loop
-f0010030 
-
-# 0x0060: nop
-00010000 
-
-# 0x0064: j HALT         # Stop execution
-f001ff00 
+# 0x0064: j fibonacci_loop
+f0010038 
 
 # 0x0068: nop
 00010000 
 
-# 0x006c: slt $t0, $a0, $a1 				# $a0 = numerator, $a1 = denominator
+# 0x006c: j HALT                                        # Stop execution
+f001ff00 
+
+# 0x0070: nop
+00010000 
+
+# 0x0074: slt $t0, $a0, $a1 				# $a0 = numerator, $a1 = denominator
 76203000 
 
-# 0x0070: bne $t0, $zero, remainder_end
-e6010084 
+# 0x0078: bne $t0, $zero, remainder_end
+e601008c 
 
-# 0x0074: nop
+# 0x007c: nop
 00010000 
 
-# 0x0078: sub $a0, $a0, $a1
+# 0x0080: sub $a0, $a0, $a1
 12203000 
 
-# 0x007c: j remainder
-f001006c 
+# 0x0084: j remainder
+f0010074 
 
-# 0x0080: nop
+# 0x0088: nop
 00010000 
 
-# 0x0084: addi $v0, $a0, 0
+# 0x008c: addi $v0, $a0, 0
 01210000 
 
-# 0x0088: jr $ra
+# 0x0090: jr $ra
 f000f000 
 
-# 0x008c: nop
+# 0x0094: nop
 00010000 
 
-# 0x0090: li $v0, 0							# counter = $v0
+# 0x0098: li $v0, 0					# counter = $v0
 01010000 
 
-# 0x0094: slt $t1, $a0, $a1					# see if $a0 < $a1 (bottom of the loop)
+# 0x009c: slt $t1, $a0, $a1				# see if $a0 < $a1 (bottom of the loop)
 77203000 
 
-# 0x0098: bne $t1, $zero, quotient_exit
-e70100b4 
+# 0x00a0: bne $t1, $zero, quotient_exit
+e70100bc 
 
-# 0x009c: nop
+# 0x00a4: nop
 00010000 
 
-# 0x00a0: sub $a0, $a0, $a1 				# SUB $a0 from $a1
+# 0x00a8: sub $a0, $a0, $a1 				# SUB $a0 from $a1
 12203000 
 
-# 0x00a4: addi $t0, $v0, 1					# counter++
-06110001 
-
-# 0x00a8: nop
-00010000 
-
-# 0x00ac: j quotient_loop
-f0010094 
+# 0x00ac: addi $v0, $v0, 1				# counter++
+01110001 
 
 # 0x00b0: nop
 00010000 
 
-# 0x00b4: jr $ra
-f000f000 
+# 0x00b4: j quotient_loop
+f001009c 
 
 # 0x00b8: nop
 00010000 
 
-# 0x00bc: bne $a0, $zero, else
-e20100d4 
+# 0x00bc: jr $ra
+f000f000 
 
 # 0x00c0: nop
 00010000 
 
-# 0x00c4: li $t0, 0x30                      # '0'
+# 0x00c4: bne $a0, $zero, else
+e20100dc 
+
+# 0x00c8: nop
+00010000 
+
+# 0x00cc: li $t0, 0x30                      # '0'
 06010030 
 
-# 0x00c8: sb $t0, 0($s1)
+# 0x00d0: sb $t0, 0($s1)
 b6b10000 
 
-# 0x00cc: jr $ra
+# 0x00d4: jr $ra
 f000f000 
 
-# 0x00d0: nop
+# 0x00d8: nop
 00010000 
 
-# 0x00d4: li $a1, 10
+# 0x00dc: li $a1, 10
 0301000a 
 
-# 0x00d8: addi $sp, $sp, -12
+# 0x00e0: addi $sp, $sp, -12
 0ee1fff4 
 
-# 0x00dc: sw $ra, 8($sp)
+# 0x00e4: sw $ra, 8($sp)
 cfe10008 
 
-# 0x00e0: sw $a0, 0($sp)
+# 0x00e8: sw $a0, 0($sp)
 c2e10000 
 
-# 0x00e4: jal remainder
-ff03006c 
+# 0x00ec: jal remainder
+ff030074 
 
-# 0x00e8: nop
+# 0x00f0: nop
 00010000 
 
-# 0x00ec: sw $v0, 4($sp)            #store digit
+# 0x00f4: sw $v0, 4($sp)            #store digit
 c1e10004 
 
-# 0x00f0: lw $a0, 0($sp)            #get back n
+# 0x00f8: lw $a0, 0($sp)            #get back n
 a2e10000 
 
-# 0x00f4: slt $t2, $v0, $a0
+# 0x00fc: slt $t2, $v0, $a0
 78102000 
 
-# 0x00f8: beq $t2, $zero, end
-d8010114 
-
-# 0x00fc: nop
-00010000 
-
-# 0x0100: jal quotient
-ff030090 
+# 0x0100: beq $t2, $zero, end
+d801011c 
 
 # 0x0104: nop
 00010000 
 
-# 0x0108: addi $a0, $v0, 0
-02110000 
+# 0x0108: jal quotient
+ff030098 
 
-# 0x010c: jal print_decimal_number
-ff0300bc 
-
-# 0x0110: nop
+# 0x010c: nop
 00010000 
 
-# 0x0114: lw $t3, 4($sp)
+# 0x0110: addi $a0, $v0, 0
+02110000 
+
+# 0x0114: jal print_decimal_number
+ff0300c4 
+
+# 0x0118: nop
+00010000 
+
+# 0x011c: lw $t3, 4($sp)
 a9e10004 
 
-# 0x0118: addi $t3, $t3, 0x30
+# 0x0120: addi $t3, $t3, 0x30
 09910030 
 
-# 0x011c: sb $t3, 0($s1)
+# 0x0124: sb $t3, 0($s1)
 b9b10000 
 
-# 0x0120: lw $ra, 8($sp)            #restore the return address
+# 0x0128: lw $ra, 8($sp)            #restore the return address
 afe10008 
 
-# 0x0124: addi $sp, $sp, 12
+# 0x012c: addi $sp, $sp, 12
 0ee1000c 
 
-# 0x0128: jr $ra
+# 0x0130: jr $ra
 f000f000 
 
-# 0x012c: nop
+# 0x0134: nop
 00010000 
