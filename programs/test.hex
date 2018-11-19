@@ -1,0 +1,173 @@
+v2.0 raw
+# This is an automatically-generated PIPS machine code file
+
+# 0x0000: nop
+00010000 
+
+# 0x0004: li $s1, TERMINAL
+0b01ff10 
+
+# 0x0008: li $sp, 0xf800
+0e01f800 
+
+# 0x000c: li $a0, 300
+0201012c 
+
+# 0x0010: jal print_decimal_number
+ff030070 
+
+# 0x0014: nop
+00010000 
+
+# 0x0018: j HALT         # Stop execution
+f001ff00 
+
+# 0x001c: nop
+00010000 
+
+# 0x0020: slt $t0, $a0, $a1 				# $a0 = numerator, $a1 = denominator
+76203000 
+
+# 0x0024: bne $t0, $zero, remainder_end
+e6010038 
+
+# 0x0028: nop
+00010000 
+
+# 0x002c: sub $a0, $a0, $a1
+12203000 
+
+# 0x0030: j remainder
+f0010020 
+
+# 0x0034: nop
+00010000 
+
+# 0x0038: addi $v0, $a0, 0
+01210000 
+
+# 0x003c: jr $ra
+f000f000 
+
+# 0x0040: nop
+00010000 
+
+# 0x0044: li $v0, 0							# counter = $v0
+01010000 
+
+# 0x0048: slt $t1, $a0, $a1					# see if $a0 < $a1 (bottom of the loop)
+77203000 
+
+# 0x004c: bne $t1, $zero, quotient_exit
+e7010068 
+
+# 0x0050: nop
+00010000 
+
+# 0x0054: sub $a0, $a0, $a1 				# SUB $a0 from $a1
+12203000 
+
+# 0x0058: addi $t0, $v0, 1					# counter++
+06110001 
+
+# 0x005c: nop
+00010000 
+
+# 0x0060: j quotient_loop
+f0010048 
+
+# 0x0064: nop
+00010000 
+
+# 0x0068: jr $ra
+f000f000 
+
+# 0x006c: nop
+00010000 
+
+# 0x0070: bne $a0, $zero, else
+e2010088 
+
+# 0x0074: nop
+00010000 
+
+# 0x0078: li $t0, 0x30                      # '0'
+06010030 
+
+# 0x007c: sb $t0, 0($s1)
+b6b10000 
+
+# 0x0080: jr $ra
+f000f000 
+
+# 0x0084: nop
+00010000 
+
+# 0x0088: li $a1, 10
+0301000a 
+
+# 0x008c: addi $sp, $sp, -12
+0ee1fff4 
+
+# 0x0090: sw $ra, 8($sp)
+cfe10008 
+
+# 0x0094: sw $a0, 0($sp)
+c2e10000 
+
+# 0x0098: jal remainder
+ff030020 
+
+# 0x009c: nop
+00010000 
+
+# 0x00a0: sw $v0, 4($sp)            #store digit
+c1e10004 
+
+# 0x00a4: lw $a0, 0($sp)            #get back n
+a2e10000 
+
+# 0x00a8: slt $t2, $v0, $a0
+78102000 
+
+# 0x00ac: beq $t2, $zero, end
+d80100c8 
+
+# 0x00b0: nop
+00010000 
+
+# 0x00b4: jal quotient
+ff030044 
+
+# 0x00b8: nop
+00010000 
+
+# 0x00bc: addi $a0, $v0, 0
+02110000 
+
+# 0x00c0: jal print_decimal_number
+ff030070 
+
+# 0x00c4: nop
+00010000 
+
+# 0x00c8: lw $t3, 4($sp)
+a9e10004 
+
+# 0x00cc: addi $t3, $t3, 0x30
+09910030 
+
+# 0x00d0: sb $t3, 0($s1)
+b9b10000 
+
+# 0x00d4: lw $ra, 8($sp)            #restore the return address
+afe10008 
+
+# 0x00d8: addi $sp, $sp, 12
+0ee1000c 
+
+# 0x00dc: jr $ra
+f000f000 
+
+# 0x00e0: nop
+00010000 
