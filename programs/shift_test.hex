@@ -1,0 +1,29 @@
+v2.0 raw
+# This is an automatically-generated PIPS machine code file
+
+# 0x0000: nop
+00010000 
+
+# 0x0004: li $t0, 24
+06010018 
+
+# 0x0008: li $t1, 24
+07010018 
+
+# 0x000c: li $t2, 24
+08010018 
+
+# 0x0010: sll $t0, $t0, 1 #should be 48
+06006401 
+
+# 0x0014: srl $t1, $t1, 2 #shoulde be 6
+07007802 
+
+# 0x0018: sra $t2, $t2, 1 #shoulde be 12
+08008c01 
+
+# 0x001c: li $t3, 0xff56 #some negtive number
+0901ff56 
+
+# 0x0020: sra $t3, $t3, 1 #still be negative
+09009c01 

@@ -147,3 +147,46 @@ def sb(dest, immediate, op1):
 @assembler.instruction('sw #, #(#)', 1)
 def sw(dest, immediate, op1):
   return pips.iformat(opcode= 'sw', r0=dest, r1=op1, imm=immediate)
+
+#Encode the sll instruction
+@assembler.instruction('sll #, #, #', 1)
+def sll(dest, op1, immediate):
+  return pips.rformat(opcode='add', r0=dest, r1='$zero', r2=op1, shift_type=pips.SHIFT_LEFT, shift_amt=immediate)
+
+#Encode the srl instruction
+@assembler.instruction('srl #, #, #', 1)
+def srl(dest, op1, immediate):
+  return pips.rformat(opcode='add', r0=dest, r1='$zero', r2=op1, shift_type=pips.SHIFT_RIGHT_LOGICAL, shift_amt=immediate)
+
+#Encode the sra instruction
+@assembler.instruction('sra #, #, #', 1)
+def sra(dest, op1, immediate):
+  return pips.rformat(opcode='add', r0=dest, r1='$zero', r2=op1, shift_type=pips.SHIFT_RIGHT_ARITHMETIC, shift_amt=immediate)
+
+#Encode the not instruction
+@assembler.instruction('not #, #', 1)
+def not_instr(dest, src):
+  return xori(dest, src, 0xffff)
+
+#Encode the push instruction
+@assembler.instruction('push #', 2) # <- notice the 2 here. This tells the assembler that we will emit two instructions for this rule
+def push_instr(reg):
+  return addi('$sp', '$sp', '-2') + sw(reg, 0, '$sp')
+
+#Encode the pop instruction
+@assembler.instruction('pop #', 2) # <- notice the 2 here. This tells the assembler that we will emit two instructions for this rule
+def pop_instr(reg):
+  return lw(reg, 0,'$sp') + addi('$sp', '$sp', '2')
+
+#Encode the blt instruction
+@assembler.instruction('blt #, #, #', 2) # <- notice the 2 here. This tells the assembler that we will emit two instructions for this rule
+def blt!(op1, op2, immediate):
+  return slt('$t0', op1, op2) + bne('$t0', '$zero', immediate)
+
+#Encode the bge instruction
+@assembler.instruction('bge #, #, #', 2) # <- notice the 2 here. This tells the assembler that we will emit two instructions for this rule
+def blt!(op1, op2, immediate):
+  return slt('$t0', op2, op1) + bne('$t0', '$zero', immediate)
+
+
+
