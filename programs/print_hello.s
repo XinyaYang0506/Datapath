@@ -1,18 +1,31 @@
-.constant TERMINAL 0xff10
 .constant HALT 0xff00
+.constant TERM 0xff10
 
-nop # First instruction does not execute
+nop
 main:
-  li $s0, TERMINAL
-  li $t0, 0x48   # Load ASCII value for 'H'
-  sb $t0, $s0, 0 # Print 'H'
-  li $t0, 0x65   # Load ASCII value for 'e'
-  sb $t0, $s0, 0 # Print 'e'
-  li $t0, 0x6c   # Load ASCII value for 'l'
-  sb $t0, $s0, 0 # Print 'l'
-  sb $t0, $s0, 0 # Print 'l'
-  li $t0, 0x6f   # Load ASCII value for 'o'
-  sb $t0, $s0, 0 # Print 'o'
-  li $t0, 0x0a   # Load ASCII value for newline
-  sb $t0, $s0, 0 # Print newline
-  j HALT         # Stop execution
+  li $s0, TERM
+  li $t0, 'H'
+  sw $t0, 0($s0)
+  li $t0, 'e'
+  sw $t0, 0($s0)
+  li $t0, 'l'
+  sw $t0, 0($s0)
+  sw $t0, 0($s0)
+  li $t0, 'o'
+  sw $t0, 0($s0)
+  li $t0, ' '
+  sw $t0, 0($s0)
+  li $t0, 'W'
+  sw $t0, 0($s0)
+  li $t0, 'o'
+  sw $t0, 0($s0)
+  li $t0, 'r'
+  sw $t0, 0($s0)
+  li $t0, 'l'
+  sw $t0, 0($s0)
+  li $t0, 'd'
+  sw $t0, 0($s0)
+  li $t0, '!'
+  sw $t0, 0($s0)
+  li $s0, HALT
+  jr $s0
