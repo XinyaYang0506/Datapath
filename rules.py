@@ -179,14 +179,23 @@ def pop_instr(reg):
   return lw(reg, 0,'$sp') + addi('$sp', '$sp', '2')
 
 #Encode the blt instruction
-@assembler.instruction('blt #, #, #', 2) # <- notice the 2 here. This tells the assembler that we will emit two instructions for this rule
-def blt!(op1, op2, immediate):
+@assembler.instruction('blt! #, #, #', 2) # <- notice the 2 here. This tells the assembler that we will emit two instructions for this rule
+def blt(op1, op2, immediate):
   return slt('$t0', op1, op2) + bne('$t0', '$zero', immediate)
 
 #Encode the bge instruction
-@assembler.instruction('bge #, #, #', 2) # <- notice the 2 here. This tells the assembler that we will emit two instructions for this rule
-def blt!(op1, op2, immediate):
+@assembler.instruction('bge! #, #, #', 2) # <- notice the 2 here. This tells the assembler that we will emit two instructions for this rule
+def bge(op1, op2, immediate):
+  return slt('$t0', op1, op2) + beq('$t0', '$zero', immediate)
+
+#Encode the bgt instruction
+@assembler.instruction('bgt! #, #, #', 2) # <- notice the 2 here. This tells the assembler that we will emit two instructions for this rule
+def bgt(op1, op2, immediate):
   return slt('$t0', op2, op1) + bne('$t0', '$zero', immediate)
 
+#Encode the ble instruction
+@assembler.instruction('ble! #, #, #', 2) # <- notice the 2 here. This tells the assembler that we will emit two instructions for this rule
+def ble(op1, op2, immediate):
+  return slt('$t0', op2, op1) + beq('$t0', '$zero', immediate)
 
 
