@@ -1,0 +1,65 @@
+v2.0 raw
+# This is an automatically-generated PIPS machine code file
+
+# 0x0000: nop
+00010000 
+
+# 0x0004: li $s0, TERM
+0a01ff10 
+
+# 0x0008: li $s1, KB
+0b01ff20 
+
+# 0x000c: li $sp, STACK_TOP
+0e01f800 
+
+# 0x0010: push $ra
+0ee1fffe cfe10000 
+
+# 0x0018: jal loop_top
+ff030028 
+
+# 0x001c: nop
+00010000 
+
+# 0x0020: li $s0, HALT						# Load the HALT (0xff00) value to $s0
+0a01ff00 
+
+# 0x0024: jr $s0
+f000a000 
+
+# 0x0028: lw $t2, 0($s1) 					# $t2 loads from 0(KB), the first character
+a8b10000 
+
+# 0x002c: li $t1, '\n'                      #
+0701000a 
+
+# 0x0030: beq $t2, $t1, end			        # checks if $t2 == '\n', jumps to end if true
+d8710064 
+
+# 0x0034: nop
+00010000 
+
+# 0x0038: push $ra                          #store $ra
+0ee1fffe cfe10000 
+
+# 0x0040: push $t2
+0ee1fffe c8e10000 
+
+# 0x0048: jal loop_top
+ff030028 
+
+# 0x004c: nop
+00010000 
+
+# 0x0050: pop $t2
+a8e10000 0ee10002 
+
+# 0x0058: sw $t2, 0($s0)					# store $t0 (from KB) into 0(TERM)
+c8a10000 
+
+# 0x005c: pop $ra
+afe10000 0ee10002 
+
+# 0x0064: jr $ra
+f000f000 
